@@ -91,7 +91,7 @@ likely suited for the particular applications the authors had in mind.
    
 ## What are future directions for this research?
 
-1. One avenue for future research is exploring better evaluation metrics for words and phrases. The evalaution
+1. One avenue for future research is exploring better evaluation metrics for words and phrases. The evaluation
    metrics used in this paper were subjective and dependent on the corpus. Having an evaluation that is (1) more
    objective (not defined by human-made examples), (2) independent of any particular corpus, and (3) capable of
    capturing non-linear relationships between words is an important foundation for continued work with word vector 
