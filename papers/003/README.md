@@ -16,7 +16,9 @@ Previous research shows that word embedding have the ability to solve analogies,
 
 The authors also explore hard and soft debiasing methods. Hard debiasing completely removes gender associations of key words while soft debiasing removes some of the gender associations. One may prefer an approach depending on the specific natural language application.
 
-The authors define a routine to identify good candidates for gender-bias words. Given the set of seed word pairs that are gender compliments (he / she, guy / gal), they complete the analogy *he:x::she:y*. The (x, y) pairs of words that maximize some score threshold are given to a set of crowd-source workers, who (1) rate whether each analogy makes sense and (2) rate whether the analogy exhibits gender bias. The word pairs which are voted to exhibit gender biases become candidates for debiasing.
+The authors define a routine to identify good candidates for gender-bias words. Given the set of seed word pairs that are gender compliments (he / she, guy / gal), they complete the analogy *he : x :: she : y*. The (x, y) pairs of words that maximize some score threshold are given to a set of crowd-source workers, who (1) rate whether each analogy makes sense and (2) rate whether the analogy exhibits gender bias. The word pairs which are voted to exhibit gender biases become candidates for debiasing.
+
+There is one previous attempt at debiasing word embeddings mentioned by the authors which seeks to remove gender entirely from the embeddings. This approach is more limited, as gender is an important component in the meaning of words and semantics of language.
 
 ## 3. What's the work's evaluation of the proposed solution?
 
@@ -34,7 +36,30 @@ Some of these limitations were mentioned in the research. The authors point out 
 
 Another problem that was hinted in the research is the identification of the gender subspace. The authors used principle components, then extracted the largest component to use as an approximation of the gender subspace. They acknowledged that the gender subspace has noise from (1) biases in the seed words, (2) polysemy (seed words having more than one meaning), and (3) limited sampling of seed words. However, there was no mention or discussion of whether gender *could* be captured as a linear subspace. While it is true that word emeddings exhibit linear features, there can only be a number of linear features captured in a finite-dimensional space. It is possible that gender is not perfectly linear. There is also an assumption that gender is single-dimensional subspace. Though the authors point this out and indicate that there algorithm works in higher-dimensional spaces, there is no discussion or mechanism for how to discover or evaluate the dimensionality of a desired subspace.
 
-**TODO: FILL IN REST OF THIS SECTION**
+The authors point out that this algorithm could generalize to other types of bias, but there is no clear discussion on how this would occur. While the algorithm is appropriately parameterized to support multi-dimensional subspaces (the parameter *k* indicates the dimensionality of the subspaces and tweaking this would result in a larger bias subspace), there is no deeper discussion on any approach for approximating the dimensionality of the subspace. This would become a challenge when dealing with more complex biases such as race.
 
+The benchmarks that is used deviates from other benchmarks, such as the analogies dataset used for evaluating the quality of word embeddings. While having a different benchmark is not itself a problem, this poses a challenge when evaluating the overall quality of the embeddings after the debiaising procedure. The embeddings are evaluated by 10 crowd-workers, which could introduce some subjective biases from the workers. 
 
+## 5. What are the contributions?
 
+1. The primary contribution of this paper is a debiasing algorithm for word embeddings. This algorithm can be parameterized by representative word pairs (i.e. he-she and granmother-grandfather for a gender subspace) and a subspace dimensionality *k*, which make this approach, in theory, generalizable.
+
+2. In the process of creating a debiaising algorithm, the authors made some improvements on methods for finding bias in embeddings. This procedure involves using seed word pairs to identify biases (i.e. using *man : woman* to identify the bias association of *programmer : homemaker*). These discovered associations are evaluated by people for biases.
+
+## 6. What are future directions for this research?
+
+1. Scaling the algorithm to work with multi-dimensional bias subspaces. As mentioned above, there are some additional challenges when dealing with larger subspaces of bias (such as race). One challenge is finding the dimensionality of the subspace to normalize across. Another challenge is finding the appropriate seed words that represent this space well. As the number of dimensions of the space increases, there may need to be many more seeding examples to create accurate representations of the space. However, there were many nuances pointed at by the authors for such seed words, even for the 1-dimensional gender subspace (for example, man-woman was not used as a seed pair because man is used frequently in other contexts and is not a perfect compliment of woman). There are challenges to scaling the discovery of seed words when the subspace is more complex.
+
+2. Creating some evaluation of whether a particular feature, such as gender, exists in the space and exhibits linear properties. The authors made the assumption that gender existed as a linear subspace of the embeddings, but the dimensionality of the embeddings (300 for the standard Google News Embeddings) is finite and can only capture a limited number of linear features. There should be some basic evaluation criteria of whether a feature even exhibits linear properties in a word embedding.
+
+3. Following from the previous point, if a feature does not truly exhibit linear qualities, there should be a way to debias that works without the assumption of linearity.
+
+## 7. What questions are left with you?
+
+1. The authors point out a potential pitfall when debiaising using seed word pairs. Many of these pairs are not perfect compliments of one another, where some words may be used in contexts where there seed compliment makes no sense (i.e. *grandfather a law* is a use of *grandfather* where *grandmother* does not work). To what extent does using these seed pairs cause the overall quality of the embeddings to degrade? When dealing with a higher-dimensional bias subspace and many more seed words, is there a compounding effect of having more seeds to larger degredation of embeddings?
+
+2. The debiasing algorithm provides a unique solution to a real world problem (having less bias ML algorithms). However, the solution is niche to natural language systems that use word embeddings. Even among systems that use word embeddings, the embeddings are a small part of the entire system and there is potential for bias in other parts as well. Is there a more generalized approach to debiasing language models? Is there a more generalize approach to debiasing ML systems?
+
+3. The identification of societal biases in the word embeddings is done through a voting system performed by 10 crowd-sourced individuals. One can see limitations to this approach since the sample size of individuals is small and the aptitude of an individual to identify societal bias may vary. What alternative benchmarks can we look into for evalting bias and fairness?
+
+## 8. What is your take-away message for this paper?
