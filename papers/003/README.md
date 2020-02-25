@@ -63,3 +63,7 @@ The benchmarks that is used deviates from other benchmarks, such as the analogie
 3. The identification of societal biases in the word embeddings is done through a voting system performed by 10 crowd-sourced individuals. One can see limitations to this approach since the sample size of individuals is small and the aptitude of an individual to identify societal bias may vary. What alternative benchmarks can we look into for evalting bias and fairness?
 
 ## 8. What is your take-away message for this paper?
+
+Word embeddings exhibit clear biases which, when used in real-world applications, compound existing societal prejudices. We could address some of these issues by debiasing word embeddings. The debiasing algorithm presented in this paper retains much of the original semantics of the embeddings. The algorithm identifies a feature we want to correct over, such as gender, uses principal components to approximate a linear subspace for the feature, and orthogonalizes words along that subspace to remove unwanted associations.
+
+The algorihm can be parameterized on strictness of debiaising. The stricter the debiasing, the less a word will carry unwated bias associations, but the greater the change the original word and a greater risk to degrading some of the semantics of the emebddings.
