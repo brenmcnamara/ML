@@ -61,12 +61,72 @@ convex, which is not true for neural network architectures.
 
 ## 4. What is your analysis of the identified problem, idea, and evaluation?
 
+The problem of having a generalized optimization algorithm is an important one. The authors approached this by
+analyzing the desirable and undesirable attributes of existing optimization algorithms and showing that Adam
+is, in theory, an improvements along these attributes. Overall, the theoretical justifications behind Adam
+are compelling. These include: moment estimation, bias correction, and automated step-size annealing.
+
+The evaluation was thorough. The authors tested their algorithm against a few popular alternatives. The
+comparison explored stationary and non-stationary objectives, the domains of computer vision and
+natural language understanding, and convergence in earlier and later epochs. Separately, Adam was compared
+with and without bias correction.
+
+Overall, Adam outperformed RMSProp, AdaGrad, and SGDNestrov across all experiment criteria that were reported.
+Also, bias correction was shown to provide added stability during training.
+
 ## 5. What are the contributions?
+
+1. The primary contribution of this paper is a superior optimization algorithm that outperforms existing solutions
+and can generalize well to many problem domains within deep learning.
+
+2. This paper explores the use of bias correction when performing parameter updates and provide a clear analysis
+with experimentation elaborating the benefits of using bias correction.
+
+3. An alternative form of Adam, called AdaMax, which uses an infinity norm instead of the second moment (see section 7.1).
+Some theoretical justification was given to this algorithm, but the algorithm itself was not included in
+the primary experimentation.
+
+4. The authors also briefly discuss temporal averaging (see section 7.2). The justification for this is that last few
+iterations of training are noisy due to stochastic sampling, so to correct for this, a moving average could be used
+for parameter updates. This theory was not tested in the experiments conducted for this paper.
 
 ## 6. What are future directions for this research?
 
+1. Experiment with AdaMax. AdaMax is purposed in this paper without any experimentation. It would be interesting to see
+how this algorithm compares to the standard Adam algorithm along multiple domains and non-stationary objectives.
+
+2. Experiment with temporal averaging. The authors propose temporal averaging as a solution to stabalizing training
+on the last few iterations. This could be tested against the standard Adam algorithm. During experimentation, the
+theory that temporal averaging provides stability at the end of training should be tested. Are there alternative
+solutions to this problem other than temporal averaging?
+
+3. In section 6.3, where the authors discuss the results of experimenting with convolutional neural networks,
+the following statement is made: "We notice the second moment estimate ... vanishes to zero after a few epochs and is
+dominated by the epsilon in algorithm 1. The second moment estimate is ... a poor approximation to the geometry of
+the cost function in CNN's compared to fully connected network[s] from section 6.2". This statement is not followed
+up by any proposal of a solution. What alternatives could there be to using the second moment estimation? Could
+this be a good use-case for the AdaMax algorithm? Would there need to be domain-specific adjustments to the
+optimization algorithms that account for specialized network geometries, or could there be a more general approach
+to working around this limitation?
+
 ## 7. What questions are you left with?
+
+1. Are their domain-specific optimization algorithms that outperform Adam for specific neural net architectures?
+All the optimization algorithms in the experiments were general-purpose optimization algorithms, but could there
+be, for example, an optimization algorithm specifically suited for recurrent neural networks?
+
+2. In section 7.1, during a discussion of AdaMax, the authors point out that variants of the L2 norm
+"become numerically unstable for large p. However, in the special case where we let p approach infinity,
+a surprisingly simple and stable algorithm emerges. As a point of clarification, what do the authors mean
+by the word "unstable" used in this context?
 
 ## 8. What is your take-away message from this paper?
 
+Adam is a new optimization algorithm for gradient-based training of deep neural networks. The algorithm is a
+combination of two existing solution: AdaGrad and RMSProp. It has many advantages over existing algorithms,
+including automated step size annealing and bounding, better training under sparse gradients,
+and invariance to gradient rescaling.
+
+Aside from the Adam optimization algorithm, this paper explores bias correction and demonstrates its capability of
+stabalizing parameter updates.
 
