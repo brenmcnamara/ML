@@ -6,7 +6,7 @@ This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howto
 
 The main problem ("people problem") that this paper is addressing is the need
 for better language models. The motivation of creating a better language model
-comes from the need to use these model to solve real-word AI problems in natural
+comes from the need to use these models to solve real-word AI problems in natural
 language such as speech-to-text transcription, machine translation, and semantic
 analysis.
 
@@ -15,7 +15,7 @@ language models.
 
 The first issue is that language models are often very slow to train.
 This is primarily because existing solutions (at the time of this paper) use
-sequence models, which most be run sequentially. Therefore, such models have
+sequence models, which must be run sequentially. Therefore, such models have
 natural bottlenecks on how fast they can be run. The authors point out two
 examples: ByteNet and ConvS2S, for speeding up the overall computation of
 language models using convolutional neural nets.
