@@ -11,8 +11,9 @@ interface Edge {
   nodeB: string;
 }
 
-interface Graph<T> {
+export interface Graph<T> {
   nodes: { [id: string]: Node<T> };
+  edgeCache: { [id: string]: string[] };
   edges: Edge[];
 }
 
@@ -44,6 +45,7 @@ export function createNumberGraph(graphDefinition: string): Graph<number> {
   }
 
   const nodes: { [id: string]: Node<number> } = {};
+  const edgeCache: { [id: string]: string[] } = {};
   const edges: Edge[] = [];
 
   for (const matcher of nodeMatchers) {
@@ -77,5 +79,26 @@ export function createNumberGraph(graphDefinition: string): Graph<number> {
     edges.push(edge);
   }
 
-  return { nodes, edges };
+  for (const edge of edges) {
+    switch (edge.edgeType) {
+      case 'DIRECTED': {
+        const toNodes = edgeCache[edge.nodeA] || [];
+        toNodes.push(edge.nodeB);
+        edgeCache[edge.nodeA] = toNodes;
+        break;
+      }
+
+      case 'UNDIRECTED': {
+        const toNodesA = edgeCache[edge.nodeA] || [];
+        toNodesA.push(edge.nodeB);
+        edgeCache[edge.nodeA] = toNodesA;
+
+        const toNodesB = edgeCache[edge.nodeB] || [];
+        toNodesB.push(edge.nodeA);
+        edgeCache[edge.nodeB] = toNodesB;
+      }
+    }
+  }
+
+  return { nodes, edgeCache, edges };
 }
