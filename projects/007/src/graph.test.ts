@@ -1,4 +1,20 @@
-import { createNumberGraph } from './graph';
+import { createGraph, createNumberGraph } from './graph';
+
+describe('createGraph', () => {
+  test('creates a single node graph', () => {
+    const assignments = { A: 1, B: 'hello' };
+    const graph = createGraph(assignments, `[A] - [B]`);
+    expect(graph.nodes.A).toEqual({ id: 'A', value: 1 });
+    expect(graph.nodes.B).toEqual({ id: 'B', value: 'hello' });
+    expect(graph.edges).toEqual([
+      { edgeType: 'UNDIRECTED', nodeA: 'A', nodeB: 'B' },
+    ]);
+  });
+
+  test('throws if edge definition uses node with no assignment', () => {
+    expect(() => createGraph({}, '[A] -> [B]')).toThrow();
+  });
+});
 
 describe('createNumberGraph', () => {
   test('creates an empty graph', () => {
