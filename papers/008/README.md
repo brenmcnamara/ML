@@ -1,4 +1,4 @@
-# Learned in Translation: Contextualized Word Vectors
+# Attention is All You Need
 
 This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howtoread.html).
 

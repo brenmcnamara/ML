@@ -1,4 +1,4 @@
-# Learned in Translation: Contextualized Word Vectors
+# Convolutional Sequence-to-Sequence Learning
 
 This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howtoread.html).
 

@@ -1,5 +1,7 @@
 # Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings
 
+This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howtoread.html).
+
 ## 1. What are the motivations for this work?
 
 The *people problem* that this paper is addressing is that of mitigating the introduction of societal prejudice in machine systems. In particular, this paper addresses the ML research community and linguistics community on the problem of societal prejudices affecting our language models. The authors indicate the severity of the problem as it can lead to a feedback loop, where societal prejudices get encoded into our models, which then make decisions in the real world partially based on these prejudices, which then may amplify the prejudices further. One example of this feedback loop is search ranking of web pages, which make decisions of what pages people see based on some ranking of search terms.

@@ -1,5 +1,7 @@
 # Distributed Representations of Words and Phrases and Their Compositionality
 
+This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howtoread.html).
+
 ## What are the motivations for this work?
 
 The main problem ("people problem") that this paper is addressing is the need for better language models.
