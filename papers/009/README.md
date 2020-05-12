@@ -6,7 +6,7 @@ This summary is based on [this rubric](https://cseweb.ucsd.edu/~wgg/CSE210/howto
 
 The main problem ("people problem") that this paper is addressing is the need
 for better language models for language translation. The motivation of
-creating a better translation language translation model comes from the need to
+creating better language translation models comes from the need to
 use these models for practical language translation needs. Aside from the
 immediate application of language translation, these models give us deeper
 insight into developing systems that learn semantics in human language which
